@@ -7,7 +7,18 @@ class dll:
     def __init__(self):
         self.head=None
     
-    def insert_at_beghinning(self,data):
+    def display(self):
+        head=self.head
+        if head is None:
+            print("Linked list is empty")
+            return
+        a=[]
+        while head:
+            a.append(head.data)
+            head=head.next
+        return a
+    
+    def insert_at_beginning(self,data):
         new=Node(data)
         if self.head is None:
             self.head=new
@@ -48,21 +59,32 @@ class dll:
         head.next=new
         new.prev=head
     
-    def display(self):
-        head=self.head
-        if head is None:
-            print("empty")
+    def delete_at_beginning(self):
+        if self.head is None:
+            print("Linked list is empty")
             return
-        a=[]
-        while head:
-            a.append(head.data)
-            head=head.next
-        return a
-    
-    def delete(self,val):
+        if self.head.next is None:
+            self.head=None
+            return
+        self.head=self.head.next
+        self.head.prev=None
+
+    def delete_at_end(self):
         head=self.head
         if head is None:
-            print("No dll")
+            print("Linked list is empty")
+            return
+        if head.next is None:
+            l.delete_at_beginning()
+            return
+        while head.next.next:
+            head=head.next
+        head.next=None
+
+    def delete_val(self,val):
+        head=self.head
+        if head is None:
+            print("Linked list is empty")
             return
         while head:
             if head.data==val:
@@ -89,17 +111,23 @@ class dll:
             l.insert_at_end(i)
             
 l=dll()
-arr=[5,4,3,2,1]
+arr=[3,2,1]
 
 for i in arr:
     l.insert_at_end(i)
 print(l.display())
 
-l.insert_at_pos(4,6)
-print("Added element 4 to 6th position :\n",l.display())
+l.insert_at_beginning(4)
+print(l.display())
 
-l.delete(4)
-print("Deleted value 4 :\n",l.display())
+l.insert_at_end(0)
+print(l.display())
+
+l.delete_at_beginning()
+print(l.display())
+
+l.delete_at_end()
+print(l.display())
 
 l.sort_dll()
-print("sorted doubly linked list :\n",l.display())
+print(l.display())
